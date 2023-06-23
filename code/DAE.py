@@ -16,9 +16,13 @@ signal = record.p_signal[:, 0]
 signal = (signal - np.mean(signal)) / np.std(signal)
 
 
-# افزودن نویز Base Wandering (BW)
+# ===========================
+# 3. Add noise (Base Wandering + Muscle Artifact)
+# ===========================
 t = np.arange(len(signal)) / record.fs
 bw_noise = 0.5 * np.sin(0.1 * np.pi * t)
+ma_noise = 0.1 * np.random.normal(0, 1, signal.shape)
+noisy_signal = signal + bw_noise + ma_noise
 
 # افزودن نویز Muscle Artifact (MA)
 ma_noise = 0.1 * np.random.normal(0, 1, signal.shape)
