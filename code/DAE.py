@@ -24,11 +24,21 @@ bw_noise = 0.5 * np.sin(0.1 * np.pi * t)
 ma_noise = 0.1 * np.random.normal(0, 1, signal.shape)
 noisy_signal = signal + bw_noise + ma_noise
 
-# افزودن نویز Muscle Artifact (MA)
-ma_noise = 0.1 * np.random.normal(0, 1, signal.shape)
 
-# ترکیب نویزها با سیگنال اصلی
-noisy_signal = signal + bw_noise + ma_noise
+# ===========================
+# 4. Segment the signal for training
+# ===========================
+def create_segments(sig, seg_len=256):
+    """Divide 1D signal into non-overlapping segments for training."""
+    segments = []
+    for i in range(0, len(sig) - seg_len, seg_len):
+        segments.append(sig[i:i+seg_len])
+    return np.array(segments)[..., np.newaxis]  # shape: (num_segments, seg_len, 1)
+
+train_size = int(len(signal) * 0.8)
+train_segments = create_segments(noisy_signal[:train_size])
+test_segments = create_segments(noisy_signal[train_size:])
+
 
 # تقسیم داده‌ها به بخش‌های آموزشی و تست
 train_size = int(len(signal) * 0.8)
