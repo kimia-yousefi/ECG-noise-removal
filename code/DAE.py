@@ -4,9 +4,17 @@ import matplotlib.pyplot as plt
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Conv1D, UpSampling1D
 
-# بارگذاری داده‌های MIT-BIH
+# ===========================
+# 1. Load ECG signal (MIT-BIH record 100)
+# ===========================
 record = wfdb.rdrecord('100', pb_dir='mitdb')
 signal = record.p_signal[:, 0]
+
+# ===========================
+# 2. Normalize the signal
+# ===========================
+signal = (signal - np.mean(signal)) / np.std(signal)
+
 
 # افزودن نویز Base Wandering (BW)
 t = np.arange(len(signal)) / record.fs
