@@ -40,22 +40,14 @@ train_segments = create_segments(noisy_signal[:train_size])
 test_segments = create_segments(noisy_signal[train_size:])
 
 
-# تقسیم داده‌ها به بخش‌های آموزشی و تست
-train_size = int(len(signal) * 0.8)
-train_signal = noisy_signal[:train_size]
-test_signal = noisy_signal[train_size:]
+# ===========================
+# 5. Build FCN-based DAE model
+# ===========================
+input_signal = Input(shape=(train_segments.shape[1], 1))  # fixed segment length
 
-# تعریف مدل FCN-based DAE
-input_signal = Input(shape=(None, 1))
-
-# لایه‌های کانولوشن
 x = Conv1D(64, kernel_size=3, activation='relu', padding='same')(input_signal)
 x = Conv1D(64, kernel_size=3, activation='relu', padding='same')(x)
-
-# لایه‌های Upsampling
-x = UpSampling1D(size=2)(x)
-x = Conv1D(64, kernel_size=3, activation='relu', padding='same')(x)
-x = Conv1D(1, kernel_size=3, activation=None, padding='same')(x)
+x = Conv1D(1, kernel_size=3, activation=None, padding='same')(x)  # output same shape
 
 model = Model(input_signal, x)
 model.compile(optimizer='adam', loss='mse')
