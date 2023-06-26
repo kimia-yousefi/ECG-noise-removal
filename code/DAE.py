@@ -52,12 +52,16 @@ x = Conv1D(1, kernel_size=3, activation=None, padding='same')(x)  # output same 
 model = Model(input_signal, x)
 model.compile(optimizer='adam', loss='mse')
 
-# آماده‌سازی داده‌ها برای آموزش
-train_signal = train_signal.reshape(-1, 1)
-test_signal = test_signal.reshape(-1, 1)
 
-# آموزش مدل
-model.fit(train_signal, train_signal, epochs=10, batch_size=32, validation_data=(test_signal, test_signal))
+# ===========================
+# 6. Train the model
+# ===========================
+model.fit(
+    train_segments, train_segments,
+    validation_data=(test_segments, test_segments),
+    epochs=20,
+    batch_size=32
+)
 
 # استفاده از مدل برای حذف نویز
 denoised_signal = model.predict(noisy_signal.reshape(-1, 1)).flatten()
