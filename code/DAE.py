@@ -71,6 +71,9 @@ model.fit(
 all_segments = create_segments(noisy_signal)
 denoised_segments = model.predict(all_segments)
 
+# Reconstruct full denoised signal
+denoised_signal = denoised_segments.reshape(-1)[:len(noisy_signal)]  # truncate to original length
+
 
 # رسم سیگنال‌ها
 plt.figure(figsize=(12, 8))
