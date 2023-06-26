@@ -63,8 +63,14 @@ model.fit(
     batch_size=32
 )
 
-# استفاده از مدل برای حذف نویز
-denoised_signal = model.predict(noisy_signal.reshape(-1, 1)).flatten()
+
+# ===========================
+# 7. Denoise full noisy signal
+# ===========================
+# Segment the full noisy signal
+all_segments = create_segments(noisy_signal)
+denoised_segments = model.predict(all_segments)
+
 
 # رسم سیگنال‌ها
 plt.figure(figsize=(12, 8))
