@@ -75,7 +75,9 @@ denoised_segments = model.predict(all_segments)
 denoised_signal = denoised_segments.reshape(-1)[:len(noisy_signal)]  # truncate to original length
 
 
-# رسم سیگنال‌ها
+# ===========================
+# 8. Plot signals
+# ===========================
 plt.figure(figsize=(12, 8))
 
 plt.subplot(3, 1, 1)
@@ -85,7 +87,7 @@ plt.legend()
 
 plt.subplot(3, 1, 2)
 plt.plot(noisy_signal, label='Noisy ECG (BW + MA)')
-plt.title('Noisy ECG Signal with BW and MA')
+plt.title('Noisy ECG Signal with Base Wandering and Muscle Artifact')
 plt.legend()
 
 plt.subplot(3, 1, 3)
