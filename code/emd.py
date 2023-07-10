@@ -1,7 +1,7 @@
 import wfdb
 import numpy as np
 import matplotlib.pyplot as plt
-from PyEMD import EEMD
+from PyEMD import EMD, EEMD 
 
 # بارگذاری داده‌های MIT-BIH
 record = wfdb.rdrecord('100', pb_dir='mitdb')  # برای رکورد 100
