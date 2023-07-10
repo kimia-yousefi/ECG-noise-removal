@@ -3,9 +3,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PyEMD import EMD, EEMD 
 
-# بارگذاری داده‌های MIT-BIH
-record = wfdb.rdrecord('100', pb_dir='mitdb')  # برای رکورد 100
-signal = record.p_signal[:, 0]  # انتخاب سیگنال اول
+# ===========================
+# 1. Load ECG signal (MIT-BIH record 100)
+# ===========================
+record = wfdb.rdrecord('100', pb_dir='mitdb')  
+signal = record.p_signal[:, 0]  # select lead I
+
 
 # استفاده از EMD برای حذف نویز 
 def denoise_signal_with_emd(noisy_signal):
