@@ -10,6 +10,11 @@ record = wfdb.rdrecord('100', pb_dir='mitdb')
 signal = record.p_signal[:, 0]  # select lead I
 
 
+# ===========================
+# 2. Normalize the signal
+# ===========================
+signal = (signal - np.mean(signal)) / np.std(signal)
+
 # استفاده از EMD برای حذف نویز 
 def denoise_signal_with_emd(noisy_signal):
      emd = EMD() 
