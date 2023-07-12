@@ -15,15 +15,13 @@ signal = record.p_signal[:, 0]  # select lead I
 # ===========================
 signal = (signal - np.mean(signal)) / np.std(signal)
 
-# استفاده از EMD برای حذف نویز 
-def denoise_signal_with_emd(noisy_signal):
-     emd = EMD() 
-     imfs = emd(noisy_signal) 
-     return imfs
 
-# اضافه کردن نویز گوسی سفید به سیگنال)
+# ===========================
+# 3. Add white Gaussian noise
+# ===========================
 noise = np.random.normal(0, 0.1, signal.shape)
 noisy_signal = signal + noise
+
 
 
 # استفاده از EEMD برای حذف نویز
