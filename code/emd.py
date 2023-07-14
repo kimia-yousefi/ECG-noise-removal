@@ -24,28 +24,45 @@ noisy_signal = signal + noise
 
 
 
-# استفاده از EEMD برای حذف نویز
-def denoise_signal_with_eemd(noisy_signal):
+# ===========================
+# 4. Define EMD denoising function
+# ===========================
+def denoise_signal_with_emd(noisy_sig, exclude_first_n=1):
+    """
+    Apply Empirical Mode Decomposition (EMD) to denoise a signal.
+    
+    Parameters:
+        noisy_sig: 1D numpy array of noisy signal
+        exclude_first_n: number of first IMFs to exclude (usually contain high-frequency noise)
+    
+    Returns:
+        denoised signal
+    """
+    emd = EMD()
+    imfs = emd(noisy_sig)
+    # Reconstruct signal excluding first few IMFs
+    denoised = np.sum(imfs[exclude_first_n:], axis=0)
+    return denoised
+
+# ===========================
+# 5. Define EEMD denoising function
+# ===========================
+def denoise_signal_with_eemd(noisy_sig, exclude_first_n=1):
+    """
+    Apply Ensemble EMD (EEMD) to denoise a signal.
+    
+    Parameters:
+        noisy_sig: 1D numpy array of noisy signal
+        exclude_first_n: number of first IMFs to exclude
+    
+    Returns:
+        denoised signal
+    """
     eemd = EEMD()
-    imfs = eemd.eemd(noisy_signal)
-    return imfs
+    imfs = eemd.eemd(noisy_sig)
+    denoised = np.sum(imfs[exclude_first_n:], axis=0)
+    return denoised
 
-# بازسازی سیگنال از IMFs انتخابی
-def reconstruct_signal(imfs, exclude_first_n=1):
-    return np.sum(imfs[exclude_first_n:], axis=0)
-
-# اعمال EMD
-imfs_emd = denoise_signal_with_emd(noisy_signal)
-denoised_signal_emd = reconstruct_signal(imfs_emd)
-
-# اعمال EEMD
-imfs = denoise_signal_with_eemd(noisy_signal)
-
-# بازسازی سیگنال تمیز شده
-denoised_signal = reconstruct_signal(imfs)
-
-# استخراج نویز حذف شده
-removed_noise = noisy_signal - denoised_signal
 
 # رسم سیگنال‌ها
 plt.figure(figsize=(12, 10))
