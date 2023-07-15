@@ -76,17 +76,16 @@ removed_noise_emd = noisy_signal - denoised_signal_emd
 removed_noise_eemd = noisy_signal - denoised_signal_eemd
 
 
-# رسم سیگنال‌ها
+# ===========================
+# 8. Plot original, EMD, and EEMD denoised signals
+# ===========================
 plt.figure(figsize=(12, 10))
+
 plt.subplot(3, 1, 1)
 plt.plot(signal, label='Original ECG')
 plt.title('Original ECG Signal')
 plt.legend()
 
-plt.subplot(3, 1, 2)
-plt.plot(denoised_signal_emd, label='Denoised ECG (EMD)')
-plt.title('Denoised ECG Signal using EMD')
-plt.legend()
 
 plt.subplot(3, 1, 3)
 plt.plot(denoised_signal, label='Denoised ECG (EEMD)')
