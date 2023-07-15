@@ -63,6 +63,18 @@ def denoise_signal_with_eemd(noisy_sig, exclude_first_n=1):
     denoised = np.sum(imfs[exclude_first_n:], axis=0)
     return denoised
 
+# ===========================
+# 6. Apply EMD and EEMD denoising
+# ===========================
+denoised_signal_emd = denoise_signal_with_emd(noisy_signal)
+denoised_signal_eemd = denoise_signal_with_eemd(noisy_signal)
+
+# ===========================
+# 7. Extract removed noise (optional)
+# ===========================
+removed_noise_emd = noisy_signal - denoised_signal_emd
+removed_noise_eemd = noisy_signal - denoised_signal_eemd
+
 
 # رسم سیگنال‌ها
 plt.figure(figsize=(12, 10))
