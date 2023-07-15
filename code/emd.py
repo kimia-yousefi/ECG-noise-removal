@@ -86,9 +86,13 @@ plt.plot(signal, label='Original ECG')
 plt.title('Original ECG Signal')
 plt.legend()
 
+plt.subplot(3, 1, 2)
+plt.plot(denoised_signal_emd, label='Denoised ECG (EMD)')
+plt.title('Denoised ECG Signal using EMD')
+plt.legend()
 
 plt.subplot(3, 1, 3)
-plt.plot(denoised_signal, label='Denoised ECG (EEMD)')
+plt.plot(denoised_signal_eemd, label='Denoised ECG (EEMD)')
 plt.title('Denoised ECG Signal using EEMD')
 plt.legend()
 
