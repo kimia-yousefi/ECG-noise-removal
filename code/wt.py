@@ -21,11 +21,24 @@ def add_noise(signal, noise_level=0.1):
     return signal + noise
 
 
-# تابع برای تولید سیگنال ECG مصنوعی
+# ===========================
+# 2. Generate a synthetic ECG signal
+# ===========================
 def generate_ecg(length=1000, fs=500):
+    """
+    Generate a simple synthetic ECG-like signal for demonstration.
+    
+    Parameters:
+        length: number of samples
+        fs: sampling frequency in Hz
+        
+    Returns:
+        synthetic ECG signal
+    """
     t = np.linspace(0, length / fs, length)
     ecg = 1.2 * np.sin(2 * np.pi * 1.33 * t) + 0.25 * np.sin(2 * np.pi * 0.5 * t)
     return ecg
+
 
 # تابع برای حذف نویز با استفاده از تبدیل موجک
 def wavelet_denoising(noisy_signal, wavelet='db4', level=4, thresholding='soft'):
