@@ -57,11 +57,17 @@ def wavelet_denoising(noisy_signal, wavelet='db4', level=4, thresholding='soft')
         denoised signal
     """
     coeffs = pywt.wavedec(noisy_signal, wavelet, level=level)
+    # Estimate noise sigma using the detail coefficients at level 1
     sigma = np.median(np.abs(coeffs[-level])) / 0.6745
     uthresh = sigma * np.sqrt(2 * np.log(len(noisy_signal)))
-    denoised_coeffs = map(lambda x: pywt.threshold(x, uthresh, mode=thresholding), coeffs)
-    denoised_signal = pywt.waverec(list(denoised_coeffs), wavelet)
-    return denoised_signal
+    
+    # Apply thresholding to all coefficients
+    denoised_coeffs = [pywt.threshold(c, uthresh, mode=thresholding) for c in coeffs]
+    denoised_signal = pywt.waverec(denoised_coeffs, wavelet)
+    
+    # Truncate to original length if needed
+    return denoised_signal[:len(noisy_signal)]
+
 
 # تولید سیگنال ECG و افزودن نویز
 ecg = generate_ecg()
