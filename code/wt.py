@@ -40,8 +40,22 @@ def generate_ecg(length=1000, fs=500):
     return ecg
 
 
-# تابع برای حذف نویز با استفاده از تبدیل موجک
+# ===========================
+# 3. Wavelet-based denoising
+# ===========================
 def wavelet_denoising(noisy_signal, wavelet='db4', level=4, thresholding='soft'):
+    """
+    Denoise a 1D signal using wavelet decomposition.
+    
+    Parameters:
+        noisy_signal: input noisy signal
+        wavelet: type of wavelet (default 'db4')
+        level: decomposition level
+        thresholding: 'soft' or 'hard' thresholding
+        
+    Returns:
+        denoised signal
+    """
     coeffs = pywt.wavedec(noisy_signal, wavelet, level=level)
     sigma = np.median(np.abs(coeffs[-level])) / 0.6745
     uthresh = sigma * np.sqrt(2 * np.log(len(noisy_signal)))
