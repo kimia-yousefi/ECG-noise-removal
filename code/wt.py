@@ -69,9 +69,12 @@ def wavelet_denoising(noisy_signal, wavelet='db4', level=4, thresholding='soft')
     return denoised_signal[:len(noisy_signal)]
 
 
-# تولید سیگنال ECG و افزودن نویز
+# ===========================
+# 4. Generate ECG and add noise
+# ===========================
 ecg = generate_ecg()
 noisy_ecg = add_noise(ecg)
+
 
 # حذف نویز با استفاده از تبدیل موجک
 clean_ecg = wavelet_denoising(noisy_ecg)
