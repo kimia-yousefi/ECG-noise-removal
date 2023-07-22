@@ -76,7 +76,9 @@ ecg = generate_ecg()
 noisy_ecg = add_noise(ecg)
 
 
-# حذف نویز با استفاده از تبدیل موجک
+# ===========================
+# 5. Denoise using wavelet transform
+# ===========================
 clean_ecg = wavelet_denoising(noisy_ecg)
 
 # نمایش سیگنال‌ها
