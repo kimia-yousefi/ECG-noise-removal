@@ -81,18 +81,25 @@ noisy_ecg = add_noise(ecg)
 # ===========================
 clean_ecg = wavelet_denoising(noisy_ecg)
 
-# نمایش سیگنال‌ها
+# ===========================
+# 6. Plot original, noisy, and denoised signals
+# ===========================
 plt.figure(figsize=(12, 8))
+
 plt.subplot(3, 1, 1)
-plt.plot(ecg)
+plt.plot(ecg, label='Original ECG')
 plt.title('Original ECG Signal')
+plt.legend()
+
 plt.subplot(3, 1, 2)
-plt.plot(noisy_ecg)
+plt.plot(noisy_ecg, label='Noisy ECG')
 plt.title('Noisy ECG Signal')
+plt.legend()
+
 plt.subplot(3, 1, 3)
-plt.plot(clean_ecg)
-plt.title('Denoised ECG Signal')
+plt.plot(clean_ecg, label='Denoised ECG')
+plt.title('Denoised ECG Signal using Wavelet Transform')
+plt.legend()
+
 plt.tight_layout()
 plt.show()
-
-
